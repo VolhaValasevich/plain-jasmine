@@ -1,0 +1,23 @@
+{
+  "name": "plain-jasmine",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "selenium-webdriver": "3.3.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/VolhaValasevich/plain-jasmine.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/VolhaValasevich/plain-jasmine/issues"
+  },
+  "homepage": "https://github.com/VolhaValasevich/plain-jasmine#readme"
+}
