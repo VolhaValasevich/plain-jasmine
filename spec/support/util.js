@@ -6,6 +6,7 @@ class Util {
 
     constructor() {
         this.browser = this.createDriver();
+        this.Key = webdriver.Key;
     }
 
     createDriver() {
@@ -58,6 +59,10 @@ class Util {
 
     waitUntilPresent(locator) {
         return this.browser.wait(until.elementLocated(locator), 5000);
+    }
+
+    executeScript(script) {
+        return this.browser.executeScript(script);
     }
 
     quit() {

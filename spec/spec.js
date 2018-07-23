@@ -16,7 +16,7 @@ describe('T-Mobile Website', () => {
         browser.quit();
     })
 
-    fdescribe('/ Mobile plans page', () => {
+    describe('/ Mobile plans page', () => {
 
         beforeEach(async () => {
             await browser.getStartPage()
@@ -69,11 +69,42 @@ describe('T-Mobile Website', () => {
             return expect(title).toEqual("Smartphones & Cell Phones | Compare our Best Cell Phones & Smartphones");
         })
 
-        xit('should filter phones by manufacturer', () => {
-            return browser.executeScript(`window.scrollTo(0,800);`)
-            element(by.id("dropdownMenu1")).click();
-            element(by.css('p[aria-label = "Apple"]')).click();
-            expect(element(by.css('div.viewSection span.ng-binding')).getText()).toEqual("Apple");
+        it('should filter phones by manufacturer', async () => {
+            await browser.executeScript(`window.scrollTo(0,700);`)
+            await browser.findElement(by.id("dropdownMenu1")).click();
+            await browser.findElement(by.css('p[aria-label = "Apple"]')).click();
+            const manufacturer = await browser.findElement(by.css('div.viewSection span.ng-binding')).getText();
+            return expect(manufacturer).toEqual("Apple");
+        })
+
+        it('should have links to phone pages', async () => {
+            const firstResultLink = await browser.findElement(by.css("a.product-name"));
+            const phoneName = await firstResultLink.getText();
+            await firstResultLink.click();
+            const title = await browser.getTitle();
+            expect(title).toContain(phoneName);
+        })
+
+        describe('/ Phone Accessories page', () => {
+
+            beforeEach(async () => {
+                await browser.findElement(by.xpath('//span[contains(text(), "Accessories")]')).click();
+            })
+
+            it('should autocomplete search input', async () => {
+                const searchInput = await browser.findElement(by.id("devicesSearchInput"));
+                await searchInput.sendKeys("apple");
+                await searchInput.sendKeys(browser.Key.ENTER);
+                const value = await searchInput.getAttribute('value')
+                expect(value).toEqual("Apple Watch Nike+ 38mm");
+            })
+
+            it('should display prices from low to high by default', async () => {
+                await browser.waitUntilPresent(by.id("devicesSearchInput"));
+                const text = await browser.findElement(by.css('button[id = "sort"] span')).getText();
+                expect(text).toEqual("Price low to high");
+            })
+
         })
     })
 })
