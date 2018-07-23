@@ -61,7 +61,7 @@ class Util {
     }
 
     quit() {
-        this.browser.close();
+        this.browser.quit();
     }
 }
 

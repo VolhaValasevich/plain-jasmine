@@ -26,7 +26,7 @@ describe('T-Mobile Website', () => {
             })
         })
 
-        fit('should have correct title', () => {
+        it('should have correct title', () => {
             browser.getTitle().then((title) => {
                 return expect(title).toEqual("Cell Phone Plans | Family Plans | Compare Cell Phone Plans | T-Mobile");
             })
@@ -49,14 +49,13 @@ describe('T-Mobile Website', () => {
             })
 
             it('should have correct title', () => {
-                browser.getTitle().then((title) => {
-                    return expect(title.length).toEqual("T-Mobile ONE Military Phone Plans | Discounts & More | T-Mobile");
+                return browser.getTitle().then((title) => {
+                    return expect(title).toEqual("T-Mobile ONE Military Phone Plans | Discounts & More | T-Mobile");
                 })
             })
 
-            xit('should have an option for verifying military status', () => {
-                browser.waitUntilPresent(by.linkText("Verify military status")).then()
-                browser.findElements(by.linkText("Verify military status")).then((found) => {
+            it('should have an option for verifying military status', () => {
+                return browser.findElements(by.linkText("Verify military status")).then((found) => {
                     return expect(found.length).toBeGreaterThan(0);
                 })
             })
